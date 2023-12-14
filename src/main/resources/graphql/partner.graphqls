@@ -1,0 +1,17 @@
+type Partner{
+	id: ID!
+	documentNumber: String!
+	firstName: String!
+	lastName: String!
+	address: String
+}
+
+type Query{
+	partnerById(id: ID): Partner
+	getPartners(count: Int): [Partner]!
+}
+
+type Mutation{
+	createPartner(documentNumber: String!, firstName: String!, lastName: String!): Partner!
+}
+

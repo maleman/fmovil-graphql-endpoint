@@ -1,0 +1,37 @@
+type Invoice{
+	id: ID
+	documentNo: String
+	description: String
+	invoiceDate: String!
+	totalLines: Float!
+	taxAmt: Float
+	grandTotal: Float!
+	partner: Partner!
+	lines: [InvoiceLine]
+}
+
+type InvoiceLine{
+	id: ID
+	lineQty: Float
+	lineTaxAmt: Float
+	lineNetAmt: Float
+	lineTotalAmt: Float
+	product: Product
+}
+
+input InputObjectInvoiceLine{
+	productId: Int! 
+	lineQty: Float! 
+	productPrice: Float!
+}
+
+extend type Query{
+	invoiceById(id: ID): Invoice
+	getInvoices(count: Int): [Invoice]!
+	getInvoiceLines(id: ID): [InvoiceLine]!
+}
+
+extend type Mutation{
+	createInvoice( documentNo: String!, description: String, grandTotal: Float!, partnerId: Int ): Invoice!
+	createInvoiceFull( documentNo: String!, description: String, grandTotal: Float!, partnerId: Int, inLines: [InputObjectInvoiceLine]! ): Invoice!
+}
